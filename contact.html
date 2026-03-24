@@ -15,11 +15,6 @@
   <body class="app-body">
     <header class="site-nav site-nav--light">
       <nav class="site-nav__inner" aria-label="Primary">
-        <div class="site-nav__left">
-          <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link" href="shop.html">Shop</a>
-        </div>
-
         <div class="site-nav__brand">
           <h1 class="site-nav__title">
             <a href="index.html" class="logo">
@@ -27,10 +22,19 @@
             </a>
           </h1>
         </div>
-
-        <div class="site-nav__right">
+        <div class="site-nav__pages">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="shop.html">Shop</a>
+          <a class="nav-link" href="mittens.html">Mittens</a>
+          <a class="nav-link" href="contact.html">Commissions</a>
           <a class="nav-link" href="about.html">About</a>
           <a class="nav-link nav-link--active" href="contact.html">Contact</a>
+        </div>
+        <button type="button" class="site-nav__menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        <div class="site-nav__right">
+          <a class="site-nav__social-btn" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
           <a class="nav-link nav-cart" href="cart.html" aria-label="Cart">
             <span class="nav-cart__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
             <span class="nav-cart__count" id="cart-count">0</span>
@@ -38,8 +42,39 @@
         </div>
       </nav>
     </header>
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+    <div class="nav-side-panel" id="nav-side-panel" aria-label="Navigation menu" aria-hidden="true">
+      <ul class="nav-side-panel__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="mittens.html">Mittens</a></li>
+        <li><a href="contact.html">Commissions</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-side-panel__social">
+        <h3 class="nav-side-panel__social-title">Follow</h3>
+        <div class="nav-side-panel__social-links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
 
     <main class="contact-main" id="content" aria-label="Contact">
+      <div class="contact-info-box">
+        <div class="contact-info-box__image">
+          <img src="assets/kincoPhotos/IMG_0376.jpg" alt="Art by Ivory mittens" />
+        </div>
+        <div class="contact-info-box__content">
+          <a href="mailto:shop@art-by-ivory.com" class="contact-info-box__email">shop@art-by-ivory.com</a>
+          <div class="contact-info-box__social">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="contact-info-box__btn">Instagram</a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="contact-info-box__btn">TikTok</a>
+          </div>
+          <p class="contact-info-box__note">DMs are open</p>
+        </div>
+      </div>
       <section class="contact-section">
         <header class="contact-header">
           <h1 class="contact-header__title">Get in touch</h1>
@@ -112,7 +147,9 @@
             <p class="site-footer__text">
               <a href="contact.html">Contact us</a> for custom orders and commissions.
             </p>
-            <p class="site-footer__location">Built in Montana · Shipped anywhere</p>
+          </div>
+          <div class="site-footer__block site-footer__image">
+            <!-- Add image: <img src="assets/your-image.jpg" alt="" /> -->
           </div>
         </div>
         <div class="site-footer__bottom">
@@ -123,6 +160,7 @@
 
     <script src="page-transitions.js" defer></script>
     <script src="cart-badge.js" defer></script>
+    <script src="nav-dropdown.js" defer></script>
     <script>
       document.querySelector(".contact-form").addEventListener("submit", function (e) {
         e.preventDefault();

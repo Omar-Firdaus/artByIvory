@@ -15,11 +15,6 @@
   <body class="app-body">
     <header class="site-nav site-nav--light">
       <nav class="site-nav__inner" aria-label="Primary">
-        <div class="site-nav__left">
-          <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link" href="shop.html">Shop</a>
-        </div>
-
         <div class="site-nav__brand">
           <h1 class="site-nav__title">
             <a href="index.html" class="logo">
@@ -27,10 +22,19 @@
             </a>
           </h1>
         </div>
-
-        <div class="site-nav__right">
+        <div class="site-nav__pages">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="shop.html">Shop</a>
+          <a class="nav-link" href="mittens.html">Mittens</a>
+          <a class="nav-link" href="contact.html">Commissions</a>
           <a class="nav-link nav-link--active" href="about.html">About</a>
           <a class="nav-link" href="contact.html">Contact</a>
+        </div>
+        <button type="button" class="site-nav__menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        <div class="site-nav__right">
+          <a class="site-nav__social-btn" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
           <a class="nav-link nav-cart" href="cart.html" aria-label="Cart">
             <span class="nav-cart__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
             <span class="nav-cart__count" id="cart-count">0</span>
@@ -38,6 +42,24 @@
         </div>
       </nav>
     </header>
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+    <div class="nav-side-panel" id="nav-side-panel" aria-label="Navigation menu" aria-hidden="true">
+      <ul class="nav-side-panel__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="mittens.html">Mittens</a></li>
+        <li><a href="contact.html">Commissions</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-side-panel__social">
+        <h3 class="nav-side-panel__social-title">Follow</h3>
+        <div class="nav-side-panel__social-links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
 
     <main class="about-main" id="content" aria-label="About">
       <section class="about-hero about-hero--mountain">
@@ -51,30 +73,19 @@
         </div>
       </section>
 
-      <section class="about-story">
+      <section class="about-story about-story--single">
         <div class="about-story__inner">
-          <h2 class="about-story__heading">From the mountain up</h2>
-          <div class="about-story__grid">
-            <div class="about-story__block">
-              <span class="about-story__num">01</span>
-              <h3>Handmade in ski country</h3>
-              <p>
-                Ivory started painting Kincos because they’re the mittens you see on every lift op, every patroller, every local at the hill. Durable, warm, built for work. We take that blank canvas and make each pair one of a kind.
-              </p>
+          <div class="about-single">
+            <div class="about-single__media">
+              <img src="assets/kincoPhotos/IMG_1375.jpg" alt="Custom-painted Kinco mittens by Art by Ivory" />
             </div>
-            <div class="about-story__block">
-              <span class="about-story__num">02</span>
-              <h3>Built to last</h3>
+            <div class="about-single__copy">
+              <h2 class="about-single__title">From the mountain up</h2>
+            <p>Ivory started painting Kincos because they’re the mittens you see on every lift op, every patroller, every local at the hill. Durable, warm, built for work. We take that blank canvas and make each pair one of a kind.</p>
               <p>
-                Kinco leather holds paint. We hand-paint each design and bake it in—no peeling, no cracking. These gloves aren’t shelf decor. They’re made for cold mornings, deep days, and seasons of use.
-              </p>
-            </div>
-            <div class="about-story__block">
-              <span class="about-story__num">03</span>
-              <h3>One of a kind</h3>
+                Kinco leather holds paint. We hand-paint each design and bake it in—no peeling, no cracking. These gloves aren’t shelf decor. They’re made for cold mornings, deep days, and seasons of use.</p>
               <p>
-                No two pairs are alike. When you wear ART BY IVORY, you’re wearing something that exists nowhere else. Custom mitten commissions? <a href="contact.html">We do those too</a>.
-              </p>
+                No two pairs are alike. When you wear ART BY IVORY, you’re wearing something that exists nowhere else. Custom mitten commissions? <a href="contact.html">We do those too</a>.</p>
             </div>
           </div>
         </div>
@@ -106,7 +117,9 @@
             <p class="site-footer__text">
               <a href="contact.html">Contact us</a> for custom orders and commissions.
             </p>
-            <p class="site-footer__location">Built in Montana · Shipped anywhere</p>
+          </div>
+          <div class="site-footer__block site-footer__image">
+            <!-- Add image: <img src="assets/your-image.jpg" alt="" /> -->
           </div>
         </div>
         <div class="site-footer__bottom">
@@ -117,6 +130,7 @@
 
     <script src="page-transitions.js" defer></script>
     <script src="cart-badge.js" defer></script>
+    <script src="nav-dropdown.js" defer></script>
     <script src="scroll-reveal.js" defer></script>
   </body>
 </html>

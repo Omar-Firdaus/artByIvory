@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shop — ART BY IVORY</title>
+    <title>Mittens — ART BY IVORY</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -24,8 +24,8 @@
         </div>
         <div class="site-nav__pages">
           <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link nav-link--active" href="shop.html">Shop</a>
-          <a class="nav-link" href="mittens.html">Mittens</a>
+          <a class="nav-link" href="shop.html">Shop</a>
+          <a class="nav-link nav-link--active" href="mittens.html">Mittens</a>
           <a class="nav-link" href="contact.html">Commissions</a>
           <a class="nav-link" href="about.html">About</a>
           <a class="nav-link" href="contact.html">Contact</a>
@@ -61,7 +61,16 @@
       </div>
     </div>
 
-    <main class="shop-catalog" id="content" aria-label="Shop">
+    <main class="shop-catalog" id="content" aria-label="Mittens">
+      <section class="mittens-gallery" aria-label="Mittens gallery">
+        <div class="mittens-gallery__inner">
+          <img src="assets/kincoPhotos/IMG_0346.jpg" alt="Custom-painted Kinco mittens" />
+          <img src="assets/kincoPhotos/IMG_0376.jpg" alt="Kinco Mittens Classic" />
+          <img src="assets/kincoPhotos/IMG_1375.jpg" alt="Hand-painted mittens by Art by Ivory" />
+          <img src="assets/kincoPhotos/IMG_0496.jpg" alt="Kinco Mittens design" />
+          <img src="assets/kincoPhotos/IMG_5650.jpg" alt="Kinco Mittens Mountain design" />
+        </div>
+      </section>
       <div class="shop-catalog__layout">
         <aside class="shop-filters" aria-label="Filter products">
           <div class="shop-filters__inner">
@@ -70,11 +79,11 @@
             <div class="shop-filters__group">
               <h4 class="shop-filters__label">Category</h4>
               <label class="shop-filters__option">
-                <input type="radio" name="category" value="all" checked />
+                <input type="radio" name="category" value="all" />
                 <span>All products</span>
               </label>
               <label class="shop-filters__option">
-                <input type="radio" name="category" value="mittens" />
+                <input type="radio" name="category" value="mittens" checked />
                 <span>Mittens</span>
               </label>
               <label class="shop-filters__option">
@@ -108,6 +117,7 @@
         </aside>
 
         <div class="shop-catalog__main">
+          <h2 class="mittens-page-title">Mittens</h2>
           <div class="shop-search">
             <label for="shop-search-input" class="visually-hidden">Search products</label>
             <input
@@ -173,32 +183,8 @@
                   </div>
                 </div>
               </article>
-
-              <article class="shop-card" data-category="custom" data-availability="coming" data-title="Custom Mitten Commission" data-meta="Your design on Kinco mitts">
-                <a href="contact.html" class="shop-card__link">
-                  <div class="shop-card__image">
-                    <img src="assets/kincoPhotos/IMG_1375.jpg" alt="Custom mitten commission" />
-                  </div>
-                  <div class="shop-card__body">
-                    <h3 class="shop-card__title">Custom Mitten Commission</h3>
-                    <p class="shop-card__meta">Your design, hand-painted</p>
-                  </div>
-                </a>
-              </article>
-
-              <article class="shop-card" data-category="custom" data-availability="coming" data-title="Bespoke Mittens" data-meta="One-of-a-kind custom designs">
-                <a href="contact.html" class="shop-card__link">
-                  <div class="shop-card__image">
-                    <img src="assets/kincoPhotos/IMG_0346.jpg" alt="Bespoke mittens" />
-                  </div>
-                  <div class="shop-card__body">
-                    <h3 class="shop-card__title">Bespoke Mittens</h3>
-                    <p class="shop-card__meta">One-of-a-kind custom designs</p>
-                  </div>
-                </a>
-              </article>
             </div>
-            <p class="shop-results__empty" id="results-empty" hidden>No products match your search. Try adjusting your filters or search terms.</p>
+            <p class="shop-results__empty" id="results-empty" hidden>No products match your search.</p>
           </div>
         </div>
       </div>
