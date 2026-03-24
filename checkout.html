@@ -117,10 +117,30 @@
               <h2 id="order-heading" class="checkout-section__title">Order summary</h2>
               <div class="checkout-summary__items" id="checkout-items"></div>
               <div class="checkout-summary__total" id="checkout-total"></div>
-              <p class="checkout-summary__note">
-                We'll email you payment instructions (Venmo/PayPal) once your order is confirmed. Shipped from Montana.
+              <section class="checkout-payment" aria-labelledby="payment-heading">
+                <h2 id="payment-heading" class="checkout-section__title">Payment</h2>
+                <p class="checkout-payment__hint" id="checkout-payment-status">
+                  Card payment uses Square. Set <code>__CHECKOUT_API_BASE__</code> in <code>checkout-config.js</code> and run the API in <code>server/</code>.
+                </p>
+                <div id="checkout-apple-pay-wrap" class="checkout-apple-pay-wrap" hidden>
+                  <p class="checkout-payment__divider">or</p>
+                  <button
+                    type="button"
+                    id="checkout-apple-pay-button"
+                    class="checkout-apple-pay-button"
+                    aria-label="Pay with Apple Pay"
+                  >
+                    Apple Pay
+                  </button>
+                  <p class="checkout-apple-pay-note" id="checkout-apple-pay-note"></p>
+                </div>
+                <div id="checkout-card-container" class="checkout-card-container"></div>
+                <p class="checkout-payment__error" id="checkout-payment-error" hidden></p>
+              </section>
+              <p class="checkout-summary__note" id="checkout-summary-note">
+                Pay securely with Square when the payment server is configured; otherwise you can still place an order without card capture (demo).
               </p>
-              <button type="submit" class="start-btn checkout-submit" id="checkout-submit">Place order</button>
+              <button type="submit" class="start-btn checkout-submit" id="checkout-submit">Pay &amp; place order</button>
             </aside>
           </div>
         </form>
@@ -164,8 +184,10 @@
     </footer>
 
     <script src="cart.js" defer></script>
+    <script src="checkout-config.js" defer></script>
     <script src="page-transitions.js" defer></script>
     <script src="checkout.js" defer></script>
+    <script src="checkout-square.js" defer></script>
     <script src="cart-badge.js" defer></script>
     <script src="nav-dropdown.js" defer></script>
   </body>

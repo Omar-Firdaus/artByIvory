@@ -60,6 +60,11 @@
     return false;
   }
 
+  function useSquareCheckout() {
+    var b = window.__CHECKOUT_API_BASE__;
+    return typeof b === "string" && b.trim().length > 0;
+  }
+
   function init() {
     var cart = window.ArtByIvoryCart ? window.ArtByIvoryCart.get() : [];
     if (!cart.length) {
@@ -70,7 +75,22 @@
     checkoutEmpty.hidden = true;
     checkoutContent.hidden = false;
     renderSummary(cart);
-    form.addEventListener("submit", handleSubmit);
+
+    var paySection = document.querySelector(".checkout-payment");
+    var noteEl = document.getElementById("checkout-summary-note");
+    var submitBtn = document.getElementById("checkout-submit");
+
+    if (useSquareCheckout()) {
+      if (noteEl) noteEl.textContent = "Shipped from Montana.";
+    } else {
+      if (paySection) paySection.hidden = true;
+      if (noteEl) {
+        noteEl.textContent =
+          "We'll email you payment instructions once your order is confirmed. Shipped from Montana.";
+      }
+      if (submitBtn) submitBtn.textContent = "Place order";
+      form.addEventListener("submit", handleSubmit);
+    }
   }
 
   if (document.readyState === "loading") {

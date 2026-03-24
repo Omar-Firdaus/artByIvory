@@ -4229,6 +4229,102 @@ html.page-exiting body {
   line-height: 1.5;
 }
 
+.checkout-payment {
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 2px dashed rgba(72, 29, 36, 0.2);
+}
+
+.checkout-payment__hint {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: rgba(72, 29, 36, 0.75);
+  margin: 0 0 0.65rem;
+  line-height: 1.45;
+}
+
+.checkout-payment__hint code {
+  font-size: 0.72em;
+  word-break: break-all;
+}
+
+.checkout-payment__divider {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(72, 29, 36, 0.45);
+  margin: 0 0 0.65rem;
+  text-align: center;
+}
+
+.checkout-apple-pay-wrap {
+  margin-bottom: 1rem;
+}
+
+.checkout-apple-pay-button {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #000;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Native Apple Pay button where supported (Safari) */
+@supports (-webkit-appearance: -apple-pay-button) {
+  .checkout-apple-pay-button {
+    -webkit-appearance: -apple-pay-button;
+    -apple-pay-button-type: buy;
+    -apple-pay-button-style: black;
+    font-size: 0;
+    color: transparent;
+    background-color: transparent;
+  }
+}
+
+.checkout-apple-pay-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Unavailable: avoid native Apple Pay chrome on a disabled button */
+.checkout-apple-pay-button.checkout-apple-pay-button--unavailable {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #555;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.checkout-apple-pay-note {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: rgba(72, 29, 36, 0.65);
+  margin: 0.5rem 0 0;
+  line-height: 1.35;
+}
+
+.checkout-card-container {
+  min-height: 92px;
+  margin: 0 0 0.5rem;
+}
+
+.checkout-payment__error {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #c42b2b;
+  margin: 0.5rem 0 0;
+  line-height: 1.4;
+}
+
 .checkout-submit {
   width: 100%;
   text-align: center;

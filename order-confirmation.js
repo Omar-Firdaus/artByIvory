@@ -8,7 +8,15 @@
       var raw = sessionStorage.getItem("artByIvoryLastOrder");
       var order = raw ? JSON.parse(raw) : null;
       if (order && order.cart && order.cart.length) {
-        if (orderEl) orderEl.textContent = "Order total: $" + (order.total || 0).toFixed(2);
+        var totalNum = typeof order.total === "number" ? order.total : parseFloat(order.total) || 0;
+        var line = "Order total: $" + totalNum.toFixed(2);
+        if (order.paidViaSquare && order.squarePaymentId) {
+          line += " · Paid via Square";
+          if (order.squareReceiptUrl) {
+            line += " (receipt in email)";
+          }
+        }
+        if (orderEl) orderEl.textContent = line;
         if (box) box.hidden = false;
         if (empty) empty.hidden = true;
         sessionStorage.removeItem("artByIvoryLastOrder");
