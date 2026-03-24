@@ -110,6 +110,10 @@
       return;
     }
 
+    if (statusEl) {
+      statusEl.textContent = "Connecting to payment server…";
+    }
+
     async function submitPaymentToServer(sourceId, opts) {
       opts = opts || {};
       var resetCardBtn = opts.resetCardBtn !== false;
@@ -198,7 +202,9 @@
     } catch (e) {
       if (statusEl) {
         statusEl.textContent =
-          "Cannot reach payment server at " + base + ". Run `npm start` in the server/ folder.";
+          "Cannot reach payment API at " +
+          base +
+          ". If you use Render, confirm the service is live; locally, run npm start in server/.";
       }
       return;
     }
