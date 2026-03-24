@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ivory’s Goon Coin — ART BY IVORY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-body">
+    <header class="site-nav site-nav--light">
+      <nav class="site-nav__inner" aria-label="Primary">
+        <div class="site-nav__brand">
+          <h1 class="site-nav__title">
+            <a href="index.html" class="logo">
+              <img src="assets/art-by-ivory-nav.svg" alt="ART BY IVORY" width="180" height="101" />
+            </a>
+          </h1>
+        </div>
+        <div class="site-nav__pages">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link nav-link--active" href="shop.html">Shop</a>
+          <a class="nav-link" href="mittens.html">Mittens</a>
+          <a class="nav-link" href="contact.html">Commissions</a>
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </div>
+        <button type="button" class="site-nav__menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        <div class="site-nav__right">
+          <a class="site-nav__social-btn" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+          <a class="nav-link nav-cart" href="cart.html" aria-label="Cart">
+            <span class="nav-cart__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
+            <span class="nav-cart__count" id="cart-count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+    <div class="nav-side-panel" id="nav-side-panel" aria-label="Navigation menu" aria-hidden="true">
+      <ul class="nav-side-panel__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="mittens.html">Mittens</a></li>
+        <li><a href="contact.html">Commissions</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-side-panel__social">
+        <h3 class="nav-side-panel__social-title">Follow</h3>
+        <div class="nav-side-panel__social-links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <main class="product-main" id="content" aria-label="Product">
+      <a href="shop.html" class="product-back">← Back to shop</a>
+
+      <article class="product-detail">
+        <div class="product-detail__media">
+          <img
+            class="product-detail__img"
+            src="assets/art-by-ivory-nav.svg"
+            alt="Ivory’s Goon Coin"
+          />
+        </div>
+        <div class="product-detail__info">
+          <span class="product-detail__badge">Shop test item</span>
+          <h1 class="product-detail__title">Ivory’s Goon Coin</h1>
+          <p class="product-detail__price">$1</p>
+          <p class="product-detail__desc">
+            A one-dollar test listing for checkout flows. Not a real coin — just here to try the cart and payment experience.
+          </p>
+          <div class="product-detail__actions">
+            <form class="product-detail__form" action="#" method="post" id="add-to-cart-form">
+              <button type="submit" class="product-detail__add">Add to cart</button>
+            </form>
+            <a href="cart.html" class="product-detail__go-cart" id="go-to-cart">Go to cart</a>
+          </div>
+          <p class="product-detail__meta">Digital test · $1</p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer" aria-labelledby="footer-heading">
+      <div class="site-footer__inner">
+        <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
+        <div class="site-footer__grid">
+          <nav class="site-footer__block site-footer__sitemap" aria-label="Site map">
+            <h3 class="site-footer__block-title">Navigate</h3>
+            <ul class="site-footer__links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="cart.html">Cart</a></li>
+            </ul>
+          </nav>
+          <div class="site-footer__block site-footer__social">
+            <h3 class="site-footer__block-title">Follow</h3>
+            <ul class="site-footer__links site-footer__social-links">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="site-footer__block site-footer__contact">
+            <h3 class="site-footer__block-title">Get in touch</h3>
+            <p class="site-footer__text">
+              <a href="contact.html">Contact us</a> for custom orders and commissions.
+            </p>
+          </div>
+          <div class="site-footer__block site-footer__image"></div>
+        </div>
+        <div class="site-footer__bottom">
+          <p class="site-footer__copyright">© 2025 ART BY IVORY</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="cart.js" defer></script>
+    <script src="page-transitions.js" defer></script>
+    <script src="cart-badge.js" defer></script>
+    <script src="nav-dropdown.js" defer></script>
+    <script>
+      (function () {
+        var form = document.getElementById("add-to-cart-form");
+        if (!form) return;
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (window.ArtByIvoryCart) {
+            window.ArtByIvoryCart.add({
+              id: "ivory-goon-coin",
+              title: "Ivory’s Goon Coin",
+              price: 1,
+              image: "assets/art-by-ivory-nav.svg",
+              qty: 1
+            });
+            var btn = form.querySelector("button");
+            var goCart = document.getElementById("go-to-cart");
+            if (btn) {
+              var t = btn.textContent;
+              btn.textContent = "Added!";
+              btn.disabled = true;
+              setTimeout(function () { btn.textContent = t; btn.disabled = false; }, 1500);
+            }
+            if (goCart) goCart.classList.add("is-visible");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

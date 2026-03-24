@@ -3012,6 +3012,10 @@ a.project-tiers__btn {
   padding: 1rem;
 }
 
+.shop-card__image--svg img {
+  padding: 1.75rem;
+}
+
 .shop-card__image--placeholder {
   display: flex;
   align-items: center;

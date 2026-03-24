@@ -14,6 +14,7 @@ const SQUARE_VERSION = "2024-11-20";
 const CATALOG_CENTS = {
   "kinco-mittens-classic": 5200,
   "kinco-gloves": 4800,
+  "ivory-goon-coin": 100,
 };
 
 function squareBaseUrl() {

@@ -95,23 +95,21 @@
     }
 
     var base = apiBase();
-    if (!base) {
+      if (!base) {
       if (statusEl) {
-        statusEl.textContent =
-          "Set CHECKOUT_API_PRODUCTION in checkout-config.js to your payment API’s HTTPS URL (where server/ runs), commit, and redeploy.";
+        statusEl.hidden = false;
+        statusEl.textContent = "Payment isn’t configured for this site yet.";
       }
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-        showError(
-          errEl,
-          "Payment API URL is not set. Edit checkout-config.js (CHECKOUT_API_PRODUCTION), deploy your server/, then push."
-        );
+        showError(errEl, "Payment isn’t configured for this site yet.");
       });
       return;
     }
 
     if (statusEl) {
-      statusEl.textContent = "Connecting to payment server…";
+      statusEl.hidden = false;
+      statusEl.textContent = "Loading payment…";
     }
 
     async function submitPaymentToServer(sourceId, opts) {
@@ -201,38 +199,40 @@
       res = await fetch(base + "/api/square/config");
     } catch (e) {
       if (statusEl) {
+        statusEl.hidden = false;
         statusEl.textContent =
-          "Cannot reach payment API at " +
-          base +
-          ". If you use Render, confirm the service is live; locally, run npm start in server/.";
+          "We couldn’t reach the payment service. Check your connection and try again.";
       }
       return;
     }
 
     var cfg = await res.json().catch(function () { return {}; });
     if (!res.ok) {
-      if (statusEl) statusEl.textContent = cfg.error || "Square config unavailable.";
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.textContent = cfg.error || "Payment setup is unavailable. Try again later.";
+      }
       return;
     }
 
     var useSandbox = cfg.environment !== "production";
 
-    if (statusEl) {
-      statusEl.textContent = useSandbox
-        ? "Sandbox test mode — use Square test card numbers. Apple Pay uses a real card in Wallet (not charged in sandbox)."
-        : "Live payment (Square production).";
-    }
-
     try {
       await loadSquareWebSdk(useSandbox);
     } catch (loadErr) {
       console.error(loadErr);
-      if (statusEl) statusEl.textContent = loadErr.message || "Square SDK failed to load.";
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.textContent = "Payment couldn’t load. Refresh the page and try again.";
+      }
       return;
     }
 
     if (!window.Square) {
-      if (statusEl) statusEl.textContent = "Square SDK loaded but window.Square is missing.";
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.textContent = "Payment couldn’t load. Refresh the page and try again.";
+      }
       return;
     }
 
@@ -240,8 +240,8 @@
     var locId = String(cfg.locationId || "").trim();
     if (!appId || !locId) {
       if (statusEl) {
-        statusEl.textContent =
-          "Missing Application ID or Location ID. Check server/.env and restart npm start.";
+        statusEl.hidden = false;
+        statusEl.textContent = "Checkout is temporarily unavailable.";
       }
       return;
     }
@@ -251,12 +251,9 @@
       payments = window.Square.payments(appId, locId);
     } catch (e) {
       console.error("Square.payments failed:", e);
-      var hint =
-        e && e.message
-          ? e.message
-          : "Invalid Application ID or Location ID (wrong sandbox/production pair, typo, or extra spaces in .env).";
       if (statusEl) {
-        statusEl.textContent = "Could not start Square payments. " + hint;
+        statusEl.hidden = false;
+        statusEl.textContent = "Card payment couldn’t start. Refresh the page or try again later.";
       }
       return;
     }
@@ -267,8 +264,16 @@
       await card.attach("#checkout-card-container");
     } catch (e) {
       console.error(e);
-      if (statusEl) statusEl.textContent = "Could not load card form.";
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.textContent = "Card form couldn’t load. Refresh and try again.";
+      }
       return;
+    }
+
+    if (statusEl) {
+      statusEl.textContent = "";
+      statusEl.hidden = true;
     }
 
     var cartForPay = getCart();
@@ -312,8 +317,8 @@
         appleBtn.removeAttribute("aria-disabled");
         appleBtn.classList.remove("checkout-apple-pay-button--unavailable");
         if (appleNote) {
-          appleNote.textContent =
-            "Uses Apple Wallet. Your domain must be verified for Apple Pay in the Square Dashboard.";
+          appleNote.textContent = "";
+          appleNote.hidden = true;
         }
         appleBtn.addEventListener("click", function (event) {
           event.preventDefault();
@@ -358,42 +363,15 @@
             });
         });
       } else {
+        if (applePayFailReason) {
+          console.info("Apple Pay unavailable:", applePayFailReason);
+        }
         appleBtn.disabled = true;
         appleBtn.setAttribute("aria-disabled", "true");
         appleBtn.classList.add("checkout-apple-pay-button--unavailable");
         if (appleNote) {
-          var hints = [];
-          if (typeof window.isSecureContext !== "undefined" && !window.isSecureContext) {
-            hints.push("Use https:// for this site (not http://).");
-          }
-          var host = typeof location !== "undefined" ? location.hostname : "";
-          if (
-            applePayFailReason &&
-            /only available on Safari|Method unsupported/i.test(applePayFailReason)
-          ) {
-            hints.push(
-              "Square is blocking Apple Pay because this tab is not running in Apple’s Safari. " +
-                "Use the Safari app (blue compass): on iPhone/iPad do not use Chrome or an in-app browser from Instagram/TikTok/Messages — open the link in Safari. " +
-                "On Mac, open Safari from Applications (not Arc, Brave, or Chrome) and go to this checkout URL again."
-            );
-          }
-          if (host) {
-            hints.push(
-              'Hostname "' +
-                host +
-                '" must match the domain registered under Apple Pay for this Square app (sandbox vs production too).'
-            );
-          }
-          if (
-            applePayFailReason &&
-            !/only available on Safari|Method unsupported/i.test(applePayFailReason)
-          ) {
-            hints.push(applePayFailReason);
-          }
-          hints.push(
-            "Mac: System Settings → Wallet & Apple Pay (add a card). Square Dashboard → your app → Apple Pay → domain verified for this host."
-          );
-          appleNote.textContent = hints.join(" ");
+          appleNote.textContent = "";
+          appleNote.hidden = true;
         }
       }
     }
