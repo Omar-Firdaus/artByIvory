@@ -61,9 +61,12 @@
           <p class="product-detail__desc">
             The same Kinco mittens you see on lift ops across the West—durable, warm, built for work. We hand-paint each pair into a one-of-a-kind piece that stands out in the lodge and holds up on the mountain. Perfect for ski season, cold mornings, and anywhere you need gear that works as hard as it looks.
           </p>
-          <form class="product-detail__form" action="#" method="post" id="add-to-cart-form">
-            <button type="submit" class="product-detail__add">Add to cart</button>
-          </form>
+          <div class="product-detail__actions">
+            <form class="product-detail__form" action="#" method="post" id="add-to-cart-form">
+              <button type="submit" class="product-detail__add">Add to cart</button>
+            </form>
+            <a href="cart.html" class="product-detail__go-cart" id="go-to-cart">Go to cart</a>
+          </div>
           <p class="product-detail__meta">Handmade · One of a kind · Free shipping</p>
         </div>
       </article>
@@ -121,12 +124,14 @@
               qty: 1
             });
             var btn = form.querySelector("button");
+            var goCart = document.getElementById("go-to-cart");
             if (btn) {
               var t = btn.textContent;
               btn.textContent = "Added!";
               btn.disabled = true;
               setTimeout(function () { btn.textContent = t; btn.disabled = false; }, 1500);
             }
+            if (goCart) goCart.classList.add("is-visible");
           }
         });
       })();

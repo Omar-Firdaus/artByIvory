@@ -44,7 +44,7 @@
     if (cartSummaryEl) {
       cartSummaryEl.innerHTML =
         '<div class="cart-summary__total">Total: $' + total.toFixed(2) + "</div>" +
-        '<a href="contact.html" class="start-btn cart-checkout">Proceed to checkout</a>' +
+        '<a href="checkout.html" class="start-btn cart-checkout">Proceed to checkout</a>' +
         '<p class="cart-summary__note">Checkout via contact—we’ll confirm your order and payment.</p>';
     }
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kinco Mittens Classic — ART BY IVORY</title>
+    <title>Order confirmed — ART BY IVORY</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,7 +17,7 @@
       <nav class="site-nav__inner" aria-label="Primary">
         <div class="site-nav__left">
           <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link nav-link--active" href="shop.html">Shop</a>
+          <a class="nav-link" href="shop.html">Shop</a>
         </div>
 
         <div class="site-nav__brand">
@@ -39,37 +39,27 @@
       </nav>
     </header>
 
-    <main class="product-main" id="content" aria-label="Product">
-      <a href="shop.html" class="product-back">← Back to shop</a>
+    <main class="confirmation-main" id="content" aria-label="Order confirmation">
+      <div class="confirmation-box" id="confirmation-box">
+        <span class="confirmation-icon" aria-hidden="true">✦</span>
+        <h1 class="confirmation-title">Order confirmed!</h1>
+        <p class="confirmation-text">
+          Thanks for your order. We'll email you shortly with payment instructions and shipping details.
+        </p>
+        <p class="confirmation-order" id="confirmation-order"></p>
+        <div class="confirmation-actions">
+          <a href="shop.html" class="start-btn">Continue shopping</a>
+          <a href="index.html" class="confirmation-link">Back to home</a>
+        </div>
+      </div>
 
-      <article class="product-detail">
-        <div class="product-detail__media">
-          <img
-            class="product-detail__img"
-            src="assets/kincoPhotos/IMG_0376.jpg"
-            alt="Kinco Mittens Classic — hand-painted in Montana"
-          />
-          <div class="product-detail__thumbs">
-            <img src="assets/kincoPhotos/IMG_0346.jpg" alt="Kinco Mittens Classic detail" />
-            <img src="assets/kincoPhotos/IMG_1375.jpg" alt="Kinco Mittens Classic" />
-          </div>
+      <div class="confirmation-empty" id="confirmation-empty" hidden>
+        <div class="confirmation-box">
+          <h2 class="confirmation-title">No order found</h2>
+          <p class="confirmation-text">If you just placed an order, it may have been processed. Otherwise, head to the shop to get started.</p>
+          <a href="shop.html" class="start-btn">Shop Mittens</a>
         </div>
-        <div class="product-detail__info">
-          <span class="product-detail__badge">Handmade in Montana</span>
-          <h1 class="product-detail__title">Kinco Mittens Classic</h1>
-          <p class="product-detail__price">$52</p>
-          <p class="product-detail__desc">
-            The classic Kinco mitt—roomier fit, same durable leather and hand-painted art. Perfect for deep cold days when you need extra warmth. Each pair is one-of-a-kind, painted to stand out on the mountain.
-          </p>
-          <div class="product-detail__actions">
-            <form class="product-detail__form" action="#" method="post" id="add-to-cart-form">
-              <button type="submit" class="product-detail__add">Add to cart</button>
-            </form>
-            <a href="cart.html" class="product-detail__go-cart" id="go-to-cart">Go to cart</a>
-          </div>
-          <p class="product-detail__meta">Handmade · One of a kind · Free shipping</p>
-        </div>
-      </article>
+      </div>
     </main>
 
     <footer class="site-footer" aria-labelledby="footer-heading">
@@ -108,33 +98,7 @@
 
     <script src="cart.js" defer></script>
     <script src="page-transitions.js" defer></script>
+    <script src="order-confirmation.js" defer></script>
     <script src="cart-badge.js" defer></script>
-    <script>
-      (function () {
-        var form = document.getElementById("add-to-cart-form");
-        if (!form) return;
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          if (window.ArtByIvoryCart) {
-            window.ArtByIvoryCart.add({
-              id: "kinco-mittens-classic",
-              title: "Kinco Mittens Classic",
-              price: 52,
-              image: "assets/kincoPhotos/IMG_0376.jpg",
-              qty: 1
-            });
-            var btn = form.querySelector("button");
-            var goCart = document.getElementById("go-to-cart");
-            if (btn) {
-              var t = btn.textContent;
-              btn.textContent = "Added!";
-              btn.disabled = true;
-              setTimeout(function () { btn.textContent = t; btn.disabled = false; }, 1500);
-            }
-            if (goCart) goCart.classList.add("is-visible");
-          }
-        });
-      })();
-    </script>
   </body>
 </html>
