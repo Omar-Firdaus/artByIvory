@@ -75,6 +75,11 @@
     if (!cart.length) {
       checkoutContent.hidden = true;
       checkoutEmpty.hidden = false;
+      var payStatus = document.getElementById("checkout-payment-status");
+      if (payStatus) {
+        payStatus.textContent = "";
+        payStatus.hidden = true;
+      }
       return;
     }
     checkoutEmpty.hidden = true;

@@ -53,7 +53,10 @@
   }
 
   function fetchWithTimeout(url, timeoutMs) {
-    var ms = timeoutMs || 65000;
+    var ms = timeoutMs || 45000;
+    if (typeof AbortController === "undefined") {
+      return fetch(url);
+    }
     var ctrl = new AbortController();
     var timer = setTimeout(function () {
       ctrl.abort();
@@ -141,6 +144,23 @@
       return;
     }
 
+    if (checkoutContent && checkoutContent.hidden) {
+      if (statusEl) {
+        statusEl.textContent = "";
+        statusEl.hidden = true;
+      }
+      return;
+    }
+
+    var cartEarly = getCart();
+    if (!cartEarly.length) {
+      if (statusEl) {
+        statusEl.textContent = "";
+        statusEl.hidden = true;
+      }
+      return;
+    }
+
     var base = apiBase();
     if (!base) {
       if (statusEl) {
@@ -160,11 +180,15 @@
     }
 
     var slowHintTimer = setTimeout(function () {
-      if (statusEl && !statusEl.hidden && /loading/i.test(statusEl.textContent || "")) {
+      if (
+        statusEl &&
+        !statusEl.hidden &&
+        (statusEl.textContent || "").trim() === "Loading payment…"
+      ) {
         statusEl.textContent =
-          "Still connecting… First visit after idle can take up to a minute while the payment server wakes up.";
+          "Still connecting… If this lasts more than a minute, your payment server (e.g. Render) may be asleep or paused — open its URL in a new tab, then refresh checkout.";
       }
-    }, 14000);
+    }, 12000);
 
     function clearSlowHint() {
       clearTimeout(slowHintTimer);
@@ -254,17 +278,20 @@
 
     var res;
     try {
-      res = await fetchWithTimeout(base + "/api/square/config", 65000);
+      res = await fetchWithTimeout(
+        base + "/api/square/config?_=" + Date.now(),
+        45000
+      );
     } catch (e) {
       clearSlowHint();
       if (statusEl) {
         statusEl.hidden = false;
         if (e && e.name === "AbortError") {
           statusEl.textContent =
-            "Payment server took too long to respond. Wait a minute and refresh (common when the server was asleep).";
+            "Payment server didn’t respond in time. In Render: open your service URL (try /health), confirm it’s not suspended, then refresh this page.";
         } else {
           statusEl.textContent =
-            "We couldn’t reach the payment service. Check your connection and try again.";
+            "We couldn’t reach the payment service. Check your connection, confirm checkout-config.js has the correct API URL, then try again.";
         }
       }
       return;
