@@ -1,0 +1,302 @@
+/* Mittens page — carousel gallery (mittens.html) */
+.mittens-page {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 2rem);
+  max-width: 72rem;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mittens-page--carousel {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.mittens-page__intro {
+  text-align: center;
+  max-width: 28rem;
+  margin: 0 auto clamp(1.25rem, 4vw, 2rem);
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.mittens-page__title {
+  margin: 0 0 0.35rem;
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  color: var(--cream);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.mittens-page__hint {
+  margin: 0;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: clamp(0.78rem, 2vw, 0.88rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(248, 244, 227, 0.55);
+}
+
+.mittens-page__shop-link {
+  text-align: center;
+  margin: 0;
+  padding: 0 1rem 1.5rem;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+
+.mittens-page__shop-link a {
+  color: var(--tagline);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.mittens-page__shop-link a:hover {
+  border-bottom-color: var(--tagline);
+}
+
+@keyframes mittens-carousel-shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateX(-5%) skewX(-12deg);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translateX(5%) skewX(-12deg);
+  }
+}
+
+@keyframes mittens-carousel-kenburns {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.09) translate(-2%, -1.5%);
+  }
+}
+
+.mittens-carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 0.25rem;
+}
+
+.mittens-carousel__shine {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  top: 10%;
+  bottom: 30%;
+  left: 15%;
+  right: 15%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(248, 244, 227, 0.06) 45%,
+    rgba(231, 61, 35, 0.08) 50%,
+    rgba(248, 244, 227, 0.05) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: mittens-carousel-shimmer 7s ease-in-out infinite;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mittens-carousel__shine {
+    animation: none;
+    opacity: 0.2;
+  }
+}
+
+.mittens-carousel__viewport {
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  outline: none;
+}
+
+.mittens-carousel__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.mittens-carousel__viewport:focus-visible {
+  box-shadow: 0 0 0 2px var(--tagline);
+}
+
+.mittens-carousel__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 3vw, 1.5rem);
+  padding: 0.5rem clamp(0.75rem, 6vw, 3.5rem) 1.25rem;
+  min-height: min(52vh, 28rem);
+}
+
+.mittens-carousel__slide {
+  flex: 0 0 min(82vw, 520px);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+  transform: scale(0.9);
+  opacity: 0.65;
+}
+
+.mittens-carousel__slide.is-active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.mittens-carousel__slide:focus-visible {
+  outline: none;
+}
+
+.mittens-carousel__slide:focus-visible .mittens-carousel__frame {
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.4), 0 0 0 3px var(--tagline);
+}
+
+.mittens-carousel__frame {
+  display: block;
+  border-radius: clamp(14px, 3vw, 22px);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(248, 244, 227, 0.1);
+  transition: box-shadow 0.45s ease;
+}
+
+.mittens-carousel__slide.is-active .mittens-carousel__frame {
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(231, 61, 35, 0.45);
+}
+
+.mittens-carousel__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mittens-carousel__slide.is-active .mittens-carousel__frame img {
+  animation: mittens-carousel-kenburns 16s ease-in-out infinite alternate;
+}
+
+.mittens-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 2px solid rgba(248, 244, 227, 0.35);
+  border-radius: 50%;
+  background: rgba(72, 29, 36, 0.55);
+  color: var(--cream);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transform: translateY(-50%);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.mittens-carousel__arrow:hover {
+  background: rgba(72, 29, 36, 0.8);
+  border-color: rgba(248, 244, 227, 0.55);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.mittens-carousel__arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.mittens-carousel__arrow--prev {
+  left: clamp(0.35rem, 2.5vw, 1rem);
+}
+
+.mittens-carousel__arrow--next {
+  right: clamp(0.35rem, 2.5vw, 1rem);
+}
+
+.mittens-carousel__arrow:focus-visible {
+  outline: 2px solid var(--tagline);
+  outline-offset: 3px;
+}
+
+.mittens-carousel__dots {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.25rem 1rem 1.25rem;
+}
+
+.mittens-carousel__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(248, 244, 227, 0.3);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mittens-carousel__dot:hover {
+  background: rgba(248, 244, 227, 0.55);
+}
+
+.mittens-carousel__dot.is-active {
+  background: var(--tagline);
+  transform: scale(1.35);
+  box-shadow: 0 0 12px rgba(231, 61, 35, 0.55);
+}
+
+.mittens-carousel__dot:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mittens-carousel__viewport {
+    scroll-behavior: auto;
+  }
+
+  .mittens-carousel__slide {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+
+  .mittens-carousel__slide.is-active .mittens-carousel__frame img {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .mittens-carousel__arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mittens-carousel__arrow svg {
+    width: 22px;
+    height: 22px;
+  }
+}
