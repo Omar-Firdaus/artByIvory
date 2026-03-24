@@ -57,13 +57,15 @@ function corsOriginCallback(origin, callback) {
   if (explicit.indexOf(origin) !== -1) {
     return callback(null, true);
   }
-  if (process.env.STRICT_CORS === "true") {
-    return callback(new Error("Origin not in CLIENT_ORIGIN"));
-  }
   if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) {
     return callback(null, true);
   }
-  return callback(new Error("Origin not allowed"));
+  if (process.env.STRICT_CORS === "true") {
+    return callback(new Error("Origin not in CLIENT_ORIGIN"));
+  }
+  // Not strict: allow other origins (e.g. Vercel) so checkout works without listing every preview URL.
+  // For production hardening, set STRICT_CORS=true and list exact origins in CLIENT_ORIGIN.
+  return callback(null, true);
 }
 
 var app = express();
