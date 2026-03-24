@@ -14,22 +14,25 @@
   if (!viewport || !track || slides.length === 0) return;
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var autoplayMs = reducedMotion ? 0 : 5200;
+  var autoplayMs = reducedMotion ? 0 : 2800;
   var autoplayId = null;
   var activeIndex = 0;
 
-  function scrollToIndex(i, smooth) {
+  function scrollToIndex(i, opts) {
+    opts = opts || {};
     if (i < 0) i = slides.length - 1;
     if (i >= slides.length) i = 0;
     activeIndex = i;
     var slide = slides[i];
     if (!slide) return;
     var target = slide.offsetLeft - (viewport.clientWidth - slide.offsetWidth) / 2;
+    var useSmooth = opts.smooth === true && !reducedMotion;
     viewport.scrollTo({
       left: Math.max(0, target),
-      behavior: smooth === false || reducedMotion ? "auto" : "smooth",
+      behavior: useSmooth ? "smooth" : "auto",
     });
     updateDots();
+    window.requestAnimationFrame(updateActiveSlide);
   }
 
   function nearestIndex() {
@@ -77,7 +80,7 @@
       b.setAttribute("aria-label", "Go to slide " + (i + 1));
       b.addEventListener("click", function () {
         stopAutoplay();
-        scrollToIndex(i);
+        scrollToIndex(i, { smooth: false });
       });
       dotsEl.appendChild(b);
     });
@@ -85,11 +88,11 @@
   }
 
   function next() {
-    scrollToIndex(activeIndex + 1);
+    scrollToIndex(activeIndex + 1, { smooth: false });
   }
 
   function prev() {
-    scrollToIndex(activeIndex - 1);
+    scrollToIndex(activeIndex - 1, { smooth: false });
   }
 
   function startAutoplay() {
@@ -97,7 +100,7 @@
     stopAutoplay();
     autoplayId = window.setInterval(function () {
       var next = (activeIndex + 1) % slides.length;
-      scrollToIndex(next);
+      scrollToIndex(next, { smooth: false });
     }, autoplayMs);
   }
 
@@ -124,7 +127,7 @@
     "scroll",
     function () {
       window.clearTimeout(scrollEndTimer);
-      scrollEndTimer = window.setTimeout(updateActiveSlide, 80);
+      scrollEndTimer = window.setTimeout(updateActiveSlide, 32);
     },
     { passive: true }
   );
@@ -163,7 +166,7 @@
   viewport.setAttribute("aria-label", "Photo carousel");
 
   window.requestAnimationFrame(function () {
-    scrollToIndex(0, false);
+    scrollToIndex(0, { smooth: false });
     updateActiveSlide();
     startAutoplay();
   });

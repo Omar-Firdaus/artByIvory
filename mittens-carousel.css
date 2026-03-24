@@ -61,27 +61,6 @@
   border-bottom-color: var(--tagline);
 }
 
-@keyframes mittens-carousel-shimmer {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: translateX(-5%) skewX(-12deg);
-  }
-  50% {
-    opacity: 0.65;
-    transform: translateX(5%) skewX(-12deg);
-  }
-}
-
-@keyframes mittens-carousel-kenburns {
-  from {
-    transform: scale(1) translate(0, 0);
-  }
-  to {
-    transform: scale(1.09) translate(-2%, -1.5%);
-  }
-}
-
 .mittens-carousel {
   position: relative;
   width: 100%;
@@ -90,31 +69,7 @@
 }
 
 .mittens-carousel__shine {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  top: 10%;
-  bottom: 30%;
-  left: 15%;
-  right: 15%;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(248, 244, 227, 0.06) 45%,
-    rgba(231, 61, 35, 0.08) 50%,
-    rgba(248, 244, 227, 0.05) 55%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: mittens-carousel-shimmer 7s ease-in-out infinite;
-  z-index: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mittens-carousel__shine {
-    animation: none;
-    opacity: 0.2;
-  }
+  display: none;
 }
 
 .mittens-carousel__viewport {
@@ -135,7 +90,8 @@
 }
 
 .mittens-carousel__viewport:focus-visible {
-  box-shadow: 0 0 0 2px var(--tagline);
+  outline: 2px solid var(--tagline);
+  outline-offset: 2px;
 }
 
 .mittens-carousel__track {
@@ -152,9 +108,9 @@
   scroll-snap-stop: always;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
-  transform: scale(0.9);
-  opacity: 0.65;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.47, 1), opacity 0.28s ease;
+  transform: scale(0.94);
+  opacity: 0.78;
 }
 
 .mittens-carousel__slide.is-active {
@@ -167,7 +123,8 @@
 }
 
 .mittens-carousel__slide:focus-visible .mittens-carousel__frame {
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.4), 0 0 0 3px var(--tagline);
+  outline: 2px solid var(--tagline);
+  outline-offset: 2px;
 }
 
 .mittens-carousel__frame {
@@ -175,12 +132,6 @@
   border-radius: clamp(14px, 3vw, 22px);
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(248, 244, 227, 0.1);
-  transition: box-shadow 0.45s ease;
-}
-
-.mittens-carousel__slide.is-active .mittens-carousel__frame {
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(231, 61, 35, 0.45);
 }
 
 .mittens-carousel__frame img {
@@ -188,10 +139,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.mittens-carousel__slide.is-active .mittens-carousel__frame img {
-  animation: mittens-carousel-kenburns 16s ease-in-out infinite alternate;
 }
 
 .mittens-carousel__arrow {
@@ -255,7 +202,7 @@
   border-radius: 50%;
   background: rgba(248, 244, 227, 0.3);
   cursor: pointer;
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.47, 1), background 0.2s ease;
 }
 
 .mittens-carousel__dot:hover {
@@ -264,8 +211,7 @@
 
 .mittens-carousel__dot.is-active {
   background: var(--tagline);
-  transform: scale(1.35);
-  box-shadow: 0 0 12px rgba(231, 61, 35, 0.55);
+  transform: scale(1.3);
 }
 
 .mittens-carousel__dot:focus-visible {
@@ -284,9 +230,6 @@
     opacity: 1;
   }
 
-  .mittens-carousel__slide.is-active .mittens-carousel__frame img {
-    animation: none;
-  }
 }
 
 @media (max-width: 520px) {
