@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — ART BY IVORY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-body">
+    <header class="site-nav site-nav--light">
+      <nav class="site-nav__inner" aria-label="Primary">
+        <div class="site-nav__left">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="shop.html">Shop</a>
+        </div>
+
+        <div class="site-nav__brand">
+          <h1 class="site-nav__title">
+            <a href="index.html" class="logo">
+              <img src="assets/art-by-ivory-nav.svg" alt="ART BY IVORY" width="180" height="101" />
+            </a>
+          </h1>
+        </div>
+
+        <div class="site-nav__right">
+          <a class="nav-link nav-link--active" href="about.html">About</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link nav-cart" href="cart.html" aria-label="Cart">
+            <span class="nav-cart__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
+            <span class="nav-cart__count" id="cart-count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="about-main" id="content" aria-label="About">
+      <section class="about-hero about-hero--mountain">
+        <div class="about-hero__bg" style="background-image: url('https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=1920');"></div>
+        <div class="about-hero__overlay"></div>
+        <div class="about-hero__content">
+          <h1 class="about-hero__title">Where raw function meets intentional design</h1>
+          <p class="about-hero__lede">
+            Handmade in Montana. Custom-painted Kinco mittens for ski country—built to last, made to stand out.
+          </p>
+        </div>
+      </section>
+
+      <section class="about-story">
+        <div class="about-story__inner">
+          <h2 class="about-story__heading">From the mountain up</h2>
+          <div class="about-story__grid">
+            <div class="about-story__block">
+              <span class="about-story__num">01</span>
+              <h3>Handmade in ski country</h3>
+              <p>
+                Ivory started painting Kincos because they’re the mittens you see on every lift op, every patroller, every local at the hill. Durable, warm, built for work. We take that blank canvas and make each pair one of a kind.
+              </p>
+            </div>
+            <div class="about-story__block">
+              <span class="about-story__num">02</span>
+              <h3>Built to last</h3>
+              <p>
+                Kinco leather holds paint. We hand-paint each design and bake it in—no peeling, no cracking. These gloves aren’t shelf decor. They’re made for cold mornings, deep days, and seasons of use.
+              </p>
+            </div>
+            <div class="about-story__block">
+              <span class="about-story__num">03</span>
+              <h3>One of a kind</h3>
+              <p>
+                No two pairs are alike. When you wear ART BY IVORY, you’re wearing something that exists nowhere else. Custom mitten commissions? <a href="contact.html">We do those too</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" aria-labelledby="footer-heading">
+      <div class="site-footer__inner">
+        <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
+        <div class="site-footer__grid">
+          <nav class="site-footer__block site-footer__sitemap" aria-label="Site map">
+            <h3 class="site-footer__block-title">Navigate</h3>
+            <ul class="site-footer__links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="cart.html">Cart</a></li>
+            </ul>
+          </nav>
+          <div class="site-footer__block site-footer__social">
+            <h3 class="site-footer__block-title">Follow</h3>
+            <ul class="site-footer__links site-footer__social-links">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="site-footer__block site-footer__contact">
+            <h3 class="site-footer__block-title">Get in touch</h3>
+            <p class="site-footer__text">
+              <a href="contact.html">Contact us</a> for custom orders and commissions.
+            </p>
+            <p class="site-footer__location">Built in Montana · Shipped anywhere</p>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <p class="site-footer__copyright">© 2025 ART BY IVORY</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="page-transitions.js" defer></script>
+    <script src="cart-badge.js" defer></script>
+    <script src="scroll-reveal.js" defer></script>
+  </body>
+</html>

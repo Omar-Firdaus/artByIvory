@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kinco Mittens Classic — ART BY IVORY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-body">
+    <header class="site-nav site-nav--light">
+      <nav class="site-nav__inner" aria-label="Primary">
+        <div class="site-nav__left">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link nav-link--active" href="shop.html">Shop</a>
+        </div>
+
+        <div class="site-nav__brand">
+          <h1 class="site-nav__title">
+            <a href="index.html" class="logo">
+              <img src="assets/art-by-ivory-nav.svg" alt="ART BY IVORY" width="180" height="101" />
+            </a>
+          </h1>
+        </div>
+
+        <div class="site-nav__right">
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link nav-cart" href="cart.html" aria-label="Cart">
+            <span class="nav-cart__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
+            <span class="nav-cart__count" id="cart-count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="product-main" id="content" aria-label="Product">
+      <a href="shop.html" class="product-back">← Back to shop</a>
+
+      <article class="product-detail">
+        <div class="product-detail__media">
+          <img
+            class="product-detail__img"
+            src="assets/kincoPhotos/IMG_0376.jpg"
+            alt="Kinco Mittens Classic — hand-painted in Montana"
+          />
+          <div class="product-detail__thumbs">
+            <img src="assets/kincoPhotos/IMG_0346.jpg" alt="Kinco Mittens Classic detail" />
+            <img src="assets/kincoPhotos/IMG_1375.jpg" alt="Kinco Mittens Classic" />
+          </div>
+        </div>
+        <div class="product-detail__info">
+          <span class="product-detail__badge">Handmade in Montana</span>
+          <h1 class="product-detail__title">Kinco Mittens Classic</h1>
+          <p class="product-detail__price">$52</p>
+          <p class="product-detail__desc">
+            The classic Kinco mitt—roomier fit, same durable leather and hand-painted art. Perfect for deep cold days when you need extra warmth. Each pair is one-of-a-kind, painted to stand out on the mountain.
+          </p>
+          <form class="product-detail__form" action="#" method="post" id="add-to-cart-form">
+            <button type="submit" class="product-detail__add">Add to cart</button>
+          </form>
+          <p class="product-detail__meta">Handmade · One of a kind · Free shipping</p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer" aria-labelledby="footer-heading">
+      <div class="site-footer__inner">
+        <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
+        <div class="site-footer__grid">
+          <nav class="site-footer__block site-footer__sitemap" aria-label="Site map">
+            <h3 class="site-footer__block-title">Navigate</h3>
+            <ul class="site-footer__links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="cart.html">Cart</a></li>
+            </ul>
+          </nav>
+          <div class="site-footer__block site-footer__social">
+            <h3 class="site-footer__block-title">Follow</h3>
+            <ul class="site-footer__links site-footer__social-links">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="site-footer__block site-footer__contact">
+            <h3 class="site-footer__block-title">Get in touch</h3>
+            <p class="site-footer__text">
+              <a href="contact.html">Contact us</a> for custom orders and commissions.
+            </p>
+            <p class="site-footer__location">Built in Montana · Shipped anywhere</p>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <p class="site-footer__copyright">© 2025 ART BY IVORY</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="cart.js" defer></script>
+    <script src="page-transitions.js" defer></script>
+    <script src="cart-badge.js" defer></script>
+    <script>
+      (function () {
+        var form = document.getElementById("add-to-cart-form");
+        if (!form) return;
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (window.ArtByIvoryCart) {
+            window.ArtByIvoryCart.add({
+              id: "kinco-mittens-classic",
+              title: "Kinco Mittens Classic",
+              price: 52,
+              image: "assets/kincoPhotos/IMG_0376.jpg",
+              qty: 1
+            });
+            var btn = form.querySelector("button");
+            if (btn) {
+              var t = btn.textContent;
+              btn.textContent = "Added!";
+              btn.disabled = true;
+              setTimeout(function () { btn.textContent = t; btn.disabled = false; }, 1500);
+            }
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

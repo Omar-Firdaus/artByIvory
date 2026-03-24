@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shop — ART BY IVORY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-body">
+    <header class="site-nav site-nav--light">
+      <nav class="site-nav__inner" aria-label="Primary">
+        <div class="site-nav__left">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link nav-link--active" href="shop.html">Shop</a>
+        </div>
+
+        <div class="site-nav__brand">
+          <h1 class="site-nav__title">
+            <a href="index.html" class="logo">
+              <img src="assets/art-by-ivory-nav.svg" alt="ART BY IVORY" width="180" height="101" />
+            </a>
+          </h1>
+        </div>
+
+        <div class="site-nav__right">
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link nav-cart" href="cart.html" aria-label="Cart">
+            <span class="nav-cart__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
+            <span class="nav-cart__count" id="cart-count">0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="shop-catalog" id="content" aria-label="Shop">
+      <div class="shop-catalog__layout">
+        <aside class="shop-filters" aria-label="Filter products">
+          <div class="shop-filters__inner">
+            <h3 class="shop-filters__title">Filters</h3>
+
+            <div class="shop-filters__group">
+              <h4 class="shop-filters__label">Category</h4>
+              <label class="shop-filters__option">
+                <input type="radio" name="category" value="all" checked />
+                <span>All products</span>
+              </label>
+              <label class="shop-filters__option">
+                <input type="radio" name="category" value="mittens" />
+                <span>Mittens</span>
+              </label>
+              <label class="shop-filters__option">
+                <input type="radio" name="category" value="custom" />
+                <span>Custom Orders</span>
+              </label>
+            </div>
+
+            <div class="shop-filters__group">
+              <h4 class="shop-filters__label">Availability</h4>
+              <label class="shop-filters__option">
+                <input type="radio" name="availability" value="all" checked />
+                <span>All</span>
+              </label>
+              <label class="shop-filters__option">
+                <input type="radio" name="availability" value="available" />
+                <span>In stock</span>
+              </label>
+              <label class="shop-filters__option">
+                <input type="radio" name="availability" value="coming" />
+                <span>Coming soon</span>
+              </label>
+            </div>
+
+            <button type="button" class="shop-filters__clear" id="clear-filters">Clear filters</button>
+          </div>
+        </aside>
+
+        <div class="shop-catalog__main">
+          <div class="shop-search">
+            <label for="shop-search-input" class="visually-hidden">Search products</label>
+            <input
+              type="search"
+              id="shop-search-input"
+              class="shop-search__input"
+              placeholder="Search products..."
+              autocomplete="off"
+            />
+            <span class="shop-search__icon" aria-hidden="true">🔍</span>
+          </div>
+
+          <div class="shop-results" id="shop-results">
+            <p class="shop-results__count" id="results-count"></p>
+            <div class="shop-grid" id="shop-grid">
+              <article class="shop-card" data-category="mittens" data-availability="available" data-title="Custom-painted Kinco Mittens" data-meta="Hand-painted · One of a kind">
+                <a href="product-kinco-gloves.html" class="shop-card__link">
+                  <div class="shop-card__image">
+                    <img src="assets/kincoPhotos/IMG_0346.jpg" alt="Custom-painted Kinco mittens" />
+                  </div>
+                  <div class="shop-card__body">
+                    <h3 class="shop-card__title">Custom-painted Kinco Mittens</h3>
+                    <p class="shop-card__meta">Hand-painted · One of a kind</p>
+                    <span class="shop-card__price">$48</span>
+                  </div>
+                </a>
+              </article>
+
+              <article class="shop-card" data-category="mittens" data-availability="available" data-title="Kinco Mittens Classic" data-meta="Hand-painted · One of a kind">
+                <a href="product-kinco-mittens.html" class="shop-card__link">
+                  <div class="shop-card__image">
+                    <img src="assets/kincoPhotos/IMG_0376.jpg" alt="Kinco Mittens Classic" />
+                  </div>
+                  <div class="shop-card__body">
+                    <h3 class="shop-card__title">Kinco Mittens Classic</h3>
+                    <p class="shop-card__meta">Hand-painted · One of a kind</p>
+                    <span class="shop-card__price">$52</span>
+                  </div>
+                </a>
+              </article>
+
+              <article class="shop-card" data-category="mittens" data-availability="coming" data-title="Kinco Mittens Mountain" data-meta="Coming soon">
+                <div class="shop-card__link shop-card__link--placeholder">
+                  <div class="shop-card__image">
+                    <img src="assets/kincoPhotos/IMG_5650.jpg" alt="Kinco Mittens Mountain design" />
+                  </div>
+                  <div class="shop-card__body">
+                    <h3 class="shop-card__title">Kinco Mittens Mountain</h3>
+                    <p class="shop-card__meta">Coming soon</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="shop-card" data-category="mittens" data-availability="coming" data-title="Kinco Mittens Floral" data-meta="Coming soon">
+                <div class="shop-card__link shop-card__link--placeholder">
+                  <div class="shop-card__image">
+                    <img src="assets/kincoPhotos/IMG_0496.jpg" alt="Kinco Mittens Floral design" />
+                  </div>
+                  <div class="shop-card__body">
+                    <h3 class="shop-card__title">Kinco Mittens Floral</h3>
+                    <p class="shop-card__meta">Coming soon</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="shop-card" data-category="custom" data-availability="coming" data-title="Custom Mitten Commission" data-meta="Your design on Kinco mitts">
+                <a href="contact.html" class="shop-card__link">
+                  <div class="shop-card__image">
+                    <img src="assets/kincoPhotos/IMG_1375.jpg" alt="Custom mitten commission" />
+                  </div>
+                  <div class="shop-card__body">
+                    <h3 class="shop-card__title">Custom Mitten Commission</h3>
+                    <p class="shop-card__meta">Your design, hand-painted</p>
+                  </div>
+                </a>
+              </article>
+
+              <article class="shop-card" data-category="custom" data-availability="coming" data-title="Bespoke Mittens" data-meta="One-of-a-kind custom designs">
+                <a href="contact.html" class="shop-card__link">
+                  <div class="shop-card__image">
+                    <img src="assets/kincoPhotos/IMG_0346.jpg" alt="Bespoke mittens" />
+                  </div>
+                  <div class="shop-card__body">
+                    <h3 class="shop-card__title">Bespoke Mittens</h3>
+                    <p class="shop-card__meta">One-of-a-kind custom designs</p>
+                  </div>
+                </a>
+              </article>
+            </div>
+            <p class="shop-results__empty" id="results-empty" hidden>No products match your search. Try adjusting your filters or search terms.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer" aria-labelledby="footer-heading">
+      <div class="site-footer__inner">
+        <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
+        <div class="site-footer__grid">
+          <nav class="site-footer__block site-footer__sitemap" aria-label="Site map">
+            <h3 class="site-footer__block-title">Navigate</h3>
+            <ul class="site-footer__links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="cart.html">Cart</a></li>
+            </ul>
+          </nav>
+          <div class="site-footer__block site-footer__social">
+            <h3 class="site-footer__block-title">Follow</h3>
+            <ul class="site-footer__links site-footer__social-links">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="site-footer__block site-footer__contact">
+            <h3 class="site-footer__block-title">Get in touch</h3>
+            <p class="site-footer__text">
+              <a href="contact.html">Contact us</a> for custom orders and commissions.
+            </p>
+            <p class="site-footer__location">Built in Montana · Shipped anywhere</p>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <p class="site-footer__copyright">© 2025 ART BY IVORY</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="page-transitions.js" defer></script>
+    <script src="shop.js" defer></script>
+    <script src="cart-badge.js" defer></script>
+  </body>
+</html>
