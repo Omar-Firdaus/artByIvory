@@ -52,7 +52,47 @@
     };
   }
 
-  function loadSquareWebSdk(useSandbox) {
+  function fetchWithTimeout(url, timeoutMs) {
+    var ms = timeoutMs || 65000;
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () {
+      ctrl.abort();
+    }, ms);
+    return fetch(url, { signal: ctrl.signal }).finally(function () {
+      clearTimeout(timer);
+    });
+  }
+
+  function withTimeout(promise, ms, errMsg) {
+    return new Promise(function (resolve, reject) {
+      var settled = false;
+      var t = setTimeout(function () {
+        if (!settled) {
+          settled = true;
+          reject(new Error(errMsg || "Timed out."));
+        }
+      }, ms);
+      Promise.resolve(promise).then(
+        function (v) {
+          if (!settled) {
+            settled = true;
+            clearTimeout(t);
+            resolve(v);
+          }
+        },
+        function (e) {
+          if (!settled) {
+            settled = true;
+            clearTimeout(t);
+            reject(e);
+          }
+        }
+      );
+    });
+  }
+
+  function loadSquareWebSdk(useSandbox, scriptTimeoutMs) {
+    var scriptMs = scriptTimeoutMs || 45000;
     return new Promise(function (resolve, reject) {
       var wantSrc = useSandbox
         ? "https://sandbox.web.squarecdn.com/v1/square.js"
@@ -65,12 +105,19 @@
         existing.parentNode.removeChild(existing);
       }
       delete window.Square;
+      var deadline = setTimeout(function () {
+        reject(new Error("Square payment script timed out."));
+      }, scriptMs);
       var s = document.createElement("script");
       s.src = wantSrc;
       s.async = true;
       s.setAttribute("data-artbyivory-square", "1");
-      s.onload = function () { resolve(); };
+      s.onload = function () {
+        clearTimeout(deadline);
+        resolve();
+      };
       s.onerror = function () {
+        clearTimeout(deadline);
         reject(new Error("Could not load Square Web Payments SDK script."));
       };
       document.head.appendChild(s);
@@ -95,7 +142,7 @@
     }
 
     var base = apiBase();
-      if (!base) {
+    if (!base) {
       if (statusEl) {
         statusEl.hidden = false;
         statusEl.textContent = "Payment isn’t configured for this site yet.";
@@ -110,6 +157,17 @@
     if (statusEl) {
       statusEl.hidden = false;
       statusEl.textContent = "Loading payment…";
+    }
+
+    var slowHintTimer = setTimeout(function () {
+      if (statusEl && !statusEl.hidden && /loading/i.test(statusEl.textContent || "")) {
+        statusEl.textContent =
+          "Still connecting… First visit after idle can take up to a minute while the payment server wakes up.";
+      }
+    }, 14000);
+
+    function clearSlowHint() {
+      clearTimeout(slowHintTimer);
     }
 
     async function submitPaymentToServer(sourceId, opts) {
@@ -196,18 +254,29 @@
 
     var res;
     try {
-      res = await fetch(base + "/api/square/config");
+      res = await fetchWithTimeout(base + "/api/square/config", 65000);
     } catch (e) {
+      clearSlowHint();
       if (statusEl) {
         statusEl.hidden = false;
-        statusEl.textContent =
-          "We couldn’t reach the payment service. Check your connection and try again.";
+        if (e && e.name === "AbortError") {
+          statusEl.textContent =
+            "Payment server took too long to respond. Wait a minute and refresh (common when the server was asleep).";
+        } else {
+          statusEl.textContent =
+            "We couldn’t reach the payment service. Check your connection and try again.";
+        }
       }
       return;
     }
 
+    if (statusEl) {
+      statusEl.textContent = "Loading secure card form…";
+    }
+
     var cfg = await res.json().catch(function () { return {}; });
     if (!res.ok) {
+      clearSlowHint();
       if (statusEl) {
         statusEl.hidden = false;
         statusEl.textContent = cfg.error || "Payment setup is unavailable. Try again later.";
@@ -220,15 +289,20 @@
     try {
       await loadSquareWebSdk(useSandbox);
     } catch (loadErr) {
+      clearSlowHint();
       console.error(loadErr);
       if (statusEl) {
         statusEl.hidden = false;
-        statusEl.textContent = "Payment couldn’t load. Refresh the page and try again.";
+        statusEl.textContent =
+          loadErr && loadErr.message && /timed out/i.test(loadErr.message)
+            ? "Payment script timed out. Check your network or try again."
+            : "Payment couldn’t load. Refresh the page and try again.";
       }
       return;
     }
 
     if (!window.Square) {
+      clearSlowHint();
       if (statusEl) {
         statusEl.hidden = false;
         statusEl.textContent = "Payment couldn’t load. Refresh the page and try again.";
@@ -239,6 +313,7 @@
     var appId = String(cfg.applicationId || "").trim();
     var locId = String(cfg.locationId || "").trim();
     if (!appId || !locId) {
+      clearSlowHint();
       if (statusEl) {
         statusEl.hidden = false;
         statusEl.textContent = "Checkout is temporarily unavailable.";
@@ -250,6 +325,7 @@
     try {
       payments = window.Square.payments(appId, locId);
     } catch (e) {
+      clearSlowHint();
       console.error("Square.payments failed:", e);
       if (statusEl) {
         statusEl.hidden = false;
@@ -260,17 +336,22 @@
 
     var card;
     try {
-      card = await payments.card();
-      await card.attach("#checkout-card-container");
+      card = await withTimeout(payments.card(), 35000, "Card field timed out.");
+      await withTimeout(card.attach("#checkout-card-container"), 35000, "Card field timed out.");
     } catch (e) {
+      clearSlowHint();
       console.error(e);
       if (statusEl) {
         statusEl.hidden = false;
-        statusEl.textContent = "Card form couldn’t load. Refresh and try again.";
+        statusEl.textContent =
+          e && e.message && /timed out/i.test(e.message)
+            ? "Card form took too long. Refresh, disable blockers, or try another network."
+            : "Card form couldn’t load. Refresh and try again.";
       }
       return;
     }
 
+    clearSlowHint();
     if (statusEl) {
       statusEl.textContent = "";
       statusEl.hidden = true;
@@ -430,10 +511,20 @@
 
   function boot() {
     if (!shouldInit()) return;
+    function run() {
+      initSquare().catch(function (e) {
+        console.error(e);
+        var el = document.getElementById("checkout-payment-status");
+        if (el) {
+          el.hidden = false;
+          el.textContent = "Payment couldn’t load. Refresh the page and try again.";
+        }
+      });
+    }
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initSquare);
+      document.addEventListener("DOMContentLoaded", run);
     } else {
-      initSquare();
+      run();
     }
   }
 
