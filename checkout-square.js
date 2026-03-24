@@ -268,9 +268,14 @@
     var cartForPay = getCart();
     var totalForApple = cartTotalDollars(cartForPay);
     var applePay = null;
+    var applePayFailReason = "";
 
     if (appleWrap && appleBtn && cartForPay.length > 0) {
-      if (typeof payments.paymentRequest === "function") {
+      if (typeof payments.paymentRequest !== "function") {
+        applePayFailReason = "This Square.js version has no paymentRequest(); try a hard refresh.";
+      } else if (totalForApple <= 0) {
+        applePayFailReason = "Cart total is zero — add items with a price.";
+      } else {
         try {
           var paymentRequest = payments.paymentRequest({
             countryCode: "US",
@@ -281,8 +286,16 @@
             },
           });
           applePay = await payments.applePay(paymentRequest);
+          if (!applePay) {
+            applePayFailReason =
+              "Square did not offer Apple Pay for this page (often hostname ≠ domain registered in Square, or Wallet not set up).";
+          }
         } catch (apErr) {
           console.error("Apple Pay unavailable:", apErr);
+          applePayFailReason =
+            (apErr && apErr.message) ||
+            (apErr && String(apErr)) ||
+            "Unknown error from Square Apple Pay.";
         }
       }
 
@@ -343,8 +356,25 @@
         appleBtn.setAttribute("aria-disabled", "true");
         appleBtn.classList.add("checkout-apple-pay-button--unavailable");
         if (appleNote) {
-          appleNote.textContent =
-            "Apple Pay only works in Safari (iPhone, iPad, or Mac) on HTTPS after your domain is registered in Square. It will not appear on plain HTTP or in Chrome/Firefox.";
+          var hints = [];
+          if (typeof window.isSecureContext !== "undefined" && !window.isSecureContext) {
+            hints.push("Use https:// for this site (not http://).");
+          }
+          var host = typeof location !== "undefined" ? location.hostname : "";
+          if (host) {
+            hints.push(
+              'This page hostname is "' +
+                host +
+                '" — Square only allows Apple Pay for that exact host (not a different Vercel preview or www vs non-www).'
+            );
+          }
+          if (applePayFailReason) {
+            hints.push(applePayFailReason);
+          }
+          hints.push(
+            "In Square: same app (sandbox/production) as this checkout → Apple Pay → domain must match this page’s hostname exactly. Mac: Safari → Settings → Wallet & Apple Pay."
+          );
+          appleNote.textContent = hints.join(" ");
         }
       }
     }
