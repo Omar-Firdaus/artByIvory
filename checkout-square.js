@@ -6,8 +6,13 @@
     return typeof b === "string" && b.trim() ? b.replace(/\/$/, "") : "";
   }
 
+  function isDeployedHost() {
+    var h = typeof location !== "undefined" ? location.hostname : "";
+    return h !== "localhost" && h !== "127.0.0.1";
+  }
+
   function shouldInit() {
-    return !!apiBase();
+    return !!apiBase() || isDeployedHost();
   }
 
   function showError(el, msg) {
@@ -90,6 +95,20 @@
     }
 
     var base = apiBase();
+    if (!base) {
+      if (statusEl) {
+        statusEl.textContent =
+          "Set CHECKOUT_API_PRODUCTION in checkout-config.js to your payment API’s HTTPS URL (where server/ runs), commit, and redeploy.";
+      }
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        showError(
+          errEl,
+          "Payment API URL is not set. Edit checkout-config.js (CHECKOUT_API_PRODUCTION), deploy your server/, then push."
+        );
+      });
+      return;
+    }
 
     async function submitPaymentToServer(sourceId, opts) {
       opts = opts || {};

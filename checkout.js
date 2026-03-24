@@ -62,7 +62,12 @@
 
   function useSquareCheckout() {
     var b = window.__CHECKOUT_API_BASE__;
-    return typeof b === "string" && b.trim().length > 0;
+    if (typeof b === "string" && b.trim().length > 0) return true;
+    try {
+      var h = location.hostname;
+      if (h !== "localhost" && h !== "127.0.0.1") return true;
+    } catch (e) {}
+    return false;
   }
 
   function init() {

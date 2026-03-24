@@ -1,0 +1,10 @@
+# Optional: connect this repo in Render as a Blueprint, or create the service manually with the same settings.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: artbyivory-checkout-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
