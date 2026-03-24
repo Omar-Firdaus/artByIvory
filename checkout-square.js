@@ -361,18 +361,31 @@
             hints.push("Use https:// for this site (not http://).");
           }
           var host = typeof location !== "undefined" ? location.hostname : "";
-          if (host) {
+          if (
+            applePayFailReason &&
+            /only available on Safari|Method unsupported/i.test(applePayFailReason)
+          ) {
             hints.push(
-              'This page hostname is "' +
-                host +
-                '" — Square only allows Apple Pay for that exact host (not a different Vercel preview or www vs non-www).'
+              "Square is blocking Apple Pay because this tab is not running in Apple’s Safari. " +
+                "Use the Safari app (blue compass): on iPhone/iPad do not use Chrome or an in-app browser from Instagram/TikTok/Messages — open the link in Safari. " +
+                "On Mac, open Safari from Applications (not Arc, Brave, or Chrome) and go to this checkout URL again."
             );
           }
-          if (applePayFailReason) {
+          if (host) {
+            hints.push(
+              'Hostname "' +
+                host +
+                '" must match the domain registered under Apple Pay for this Square app (sandbox vs production too).'
+            );
+          }
+          if (
+            applePayFailReason &&
+            !/only available on Safari|Method unsupported/i.test(applePayFailReason)
+          ) {
             hints.push(applePayFailReason);
           }
           hints.push(
-            "In Square: same app (sandbox/production) as this checkout → Apple Pay → domain must match this page’s hostname exactly. Mac: Safari → Settings → Wallet & Apple Pay."
+            "Mac: System Settings → Wallet & Apple Pay (add a card). Square Dashboard → your app → Apple Pay → domain verified for this host."
           );
           appleNote.textContent = hints.join(" ");
         }
